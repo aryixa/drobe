@@ -90,6 +90,10 @@ class ContextParser:
         self.pattern_keywords = self._init_pattern_keywords()
         self.clothing_type_keywords = self._init_clothing_type_keywords()
         
+        # Add simple caching for performance
+        self._parse_cache = {}
+        self._cache_size_limit = 100
+        
         print("Context Parser initialized")
     
     def _init_occasion_keywords(self) -> Dict[str, OccasionType]:
@@ -307,6 +311,11 @@ class ContextParser:
         Returns:
             ParsedContext with extracted information
         """
+        # Check cache first
+        cache_key = query.lower().strip()
+        if cache_key in self._parse_cache:
+            return self._parse_cache[cache_key]
+        
         query_lower = query.lower()
         errors = []
         

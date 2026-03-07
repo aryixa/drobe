@@ -87,6 +87,15 @@ class IntegrationEngine:
                       query: str,
                       max_outfits: int = 5,
                       ranking_method: RankingMethod = RankingMethod.HYBRID) -> RecommendationResult:
+        """Process a complete outfit recommendation query"""
+        # Input validation
+        if not query or not query.strip():
+            return self._create_empty_result(query or "", ParsedContext(
+                original_query="",
+                occasion=None, season=None, weather=None, time_of_day=None, style_level=None,
+                colors=[], patterns=[], clothing_types=[], keywords=[],
+                temperature_range=None, confidence=0.0, parsing_errors=["Empty query provided"]
+            ), datetime.now())
         """
         Process a complete outfit recommendation query
         
