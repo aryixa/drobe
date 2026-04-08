@@ -5,6 +5,7 @@ Convert natural language input to structured context
 
 import re
 from typing import Dict, List, Optional, Union, Tuple
+from pathlib import Path
 from dataclasses import dataclass
 from enum import Enum
 from datetime import datetime, time
