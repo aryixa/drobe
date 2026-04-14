@@ -1,12 +1,23 @@
 # The Drobe
 
-A minimalist wardrobe management application built with React, TypeScript, Tailwind CSS, and Supabase.
-## Tech Stack
+Drobe is a AI powered wardrobe management application where you can upload your clothing, get context-aware outfit recommendations.
+## What it does
 
-- **Frontend**: React 18, TypeScript, Vite
-- **Styling**: Tailwind CSS with custom design system
-- **Backend**: Supabase (Database, Auth, Storage)
-- **Icons**: Lucide React
-- **Routing**: React Router v6
+**Wardrobe management** — upload garment photos, browse and filter your collection
+**Smart tagging** — automatically labels each item by colour, type, pattern, and season
+**AI Stylist** — input your weather, event, and time of day; get a recommended outfit with a natural-language explanation
 
 
+## How it works
+User uploads image
+       ↓
+Preprocess (resize 224×224, remove background)
+       ↓
+ResNet-50 → 512-dim embedding
+       ↓
+Linear classifier → smart tags (colour, type, pattern, season)
+       ↓
+FAISS vector index (per user)
+       ↓
+On recommendation request:
+  Query vector (context) → FAISS ANN search → top-k candidates → LLM re-rank → outfit + explanation
